@@ -34,12 +34,12 @@ namespace MovieReviewsCompulsory.Domain.Service
 
         public int GetNumberOfRatesByReviewer(int reviewer, int rate)
         {
-            throw new System.NotImplementedException();
+            return _repository.ReadAll().FindAll((r) => r.Reviewer == reviewer&&r.Grade==rate).Count;
         }
 
         public int GetNumberOfReviews(int movie)
         {
-            throw new System.NotImplementedException();
+            return _repository.ReadAll().FindAll((r) => r.Movie == movie).Count;
         }
 
         public double GetAverageRateOfMovie(int movie)

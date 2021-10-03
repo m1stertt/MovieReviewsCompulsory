@@ -46,8 +46,8 @@ namespace Tests
             });
             data.Add(new Review
             {
-                Reviewer = 4,
-                Grade = 5,
+                Reviewer = 3,
+                Grade = 3,
                 Movie = 3,
                 Date = DateTime.Now
             });
@@ -58,8 +58,7 @@ namespace Tests
         [Theory]
         [InlineData(1,2)]
         [InlineData(2,1)]
-        [InlineData(3,1)]
-        [InlineData(4,1)]
+        [InlineData(3,2)]
         public void GetNumberOfReviewsFromReviewer(int reviewer, int expected)
         {
             var service = new ReviewService(_mock.Object);
@@ -71,12 +70,37 @@ namespace Tests
         [InlineData(1,3)]
         [InlineData(2,5)]
         [InlineData(3,3)]
-        [InlineData(4,5)]
         public void GetAverageRateFromReviewer(int reviewer, double expected)
         {
             var service = new ReviewService(_mock.Object);
             var actual = service.GetAverageRateFromReviewer(reviewer);
             Assert.Equal(expected,actual);
+        }
+
+        [Theory]
+        [InlineData(1,2,1)]
+        [InlineData(1,1,0)]
+        [InlineData(1,4,1)]
+        [InlineData(2,5,1)]
+        [InlineData(2,4,0)]
+        [InlineData(3,3,2)]
+        public void GetNumberOfRatesByReviewer(int reviewer, int rate, int expected)
+        {
+            var service = new ReviewService(_mock.Object);
+            var actual = service.GetNumberOfRatesByReviewer(reviewer,rate);
+            Assert.Equal(expected,actual);
+        }
+
+        [Theory]
+        [InlineData(1, 2)]
+        [InlineData(2, 2)]
+        [InlineData(3, 1)]
+        [InlineData(4, 0)]
+        public void GetNumberOfReviews(int movie, int expected)
+        {
+            var service = new ReviewService(_mock.Object);
+            var actual = service.GetNumberOfReviews(movie);
+            Assert.Equal(expected,actual); 
         }
     }
 }
