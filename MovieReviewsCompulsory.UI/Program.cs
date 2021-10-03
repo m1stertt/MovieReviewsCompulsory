@@ -1,4 +1,6 @@
 ﻿using System;
+using Microsoft.Extensions.DependencyInjection;
+using MovieReviewsCompulsory.Core.IServices;
 
 namespace MovieReviewsCompulsory.UI
 {
@@ -6,7 +8,9 @@ namespace MovieReviewsCompulsory.UI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var serviceCollection = new ServiceCollection();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            var petService = serviceProvider.GetRequiredService<IReviewService>();
         }
     }
 }
