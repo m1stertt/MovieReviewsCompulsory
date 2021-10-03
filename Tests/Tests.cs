@@ -62,7 +62,9 @@ namespace Tests
         [InlineData(4,1)]
         public void GetNumberOfReviewsFromReviewer(int reviewer, int expected)
         {
-            Assert.Equal(expected,new ReviewService(_mock.Object).GetNumberOfReviewsFromReviewer(reviewer));
+            var service = new ReviewService(_mock.Object);
+            var actual = service.GetNumberOfReviewsFromReviewer(reviewer);
+            Assert.Equal(expected,actual);
         }
 
         [Theory]
@@ -72,7 +74,9 @@ namespace Tests
         [InlineData(4,5)]
         public void GetAverageRateFromReviewer(int reviewer, double expected)
         {
-            Assert.Equal(expected,new ReviewService(_mock.Object).GetAverageRateFromReviewer(reviewer));
+            var service = new ReviewService(_mock.Object);
+            var actual = service.GetAverageRateFromReviewer(reviewer);
+            Assert.Equal(expected,actual);
         }
     }
 }
