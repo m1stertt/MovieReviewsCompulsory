@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieReviewsCompulsory.Core
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieReviewsCompulsory.Domain", "MovieReviewsCompulsory.Domain\MovieReviewsCompulsory.Domain.csproj", "{CBFA243F-0CD7-47FD-A100-F8B586CA1CAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{47A2BA44-C720-40CF-A895-9AA9F240437A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{CBFA243F-0CD7-47FD-A100-F8B586CA1CAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBFA243F-0CD7-47FD-A100-F8B586CA1CAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBFA243F-0CD7-47FD-A100-F8B586CA1CAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47A2BA44-C720-40CF-A895-9AA9F240437A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47A2BA44-C720-40CF-A895-9AA9F240437A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47A2BA44-C720-40CF-A895-9AA9F240437A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47A2BA44-C720-40CF-A895-9AA9F240437A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{36585A96-0768-42E8-B6D8-D3277C4BF9C8} = {1905B3CD-BF96-4B21-93CB-D3E3D2ECCF5B}
