@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MovieReviewsCompulsory.Core.IServices;
+using MovieReviewsCompulsory.Core.Models;
 using MovieReviewsCompulsory.Domain.IRepositories;
 
 namespace MovieReviewsCompulsory.Domain.Service
@@ -16,12 +17,19 @@ namespace MovieReviewsCompulsory.Domain.Service
         
         public int GetNumberOfReviewsFromReviewer(int reviewer)
         {
-            throw new System.NotImplementedException();
+            List<Review> reviews=_repository.ReadAll();
+            return reviews.FindAll((r) => r.Reviewer == reviewer).Count;
         }
 
         public double GetAverageRateFromReviewer(int reviewer)
         {
-            throw new System.NotImplementedException();
+            List<Review> reviews=_repository.ReadAll().FindAll((r) => r.Reviewer == reviewer);
+            double count = 0;
+            foreach (Review rev in reviews)
+            {
+                count += rev.Grade;
+            }
+            return count / reviews.Count;
         }
 
         public int GetNumberOfRatesByReviewer(int reviewer, int rate)
