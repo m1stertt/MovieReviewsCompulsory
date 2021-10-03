@@ -22,6 +22,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MovieReviewsCompulsory.Core\MovieReviewsCompulsory.Core.csproj" />
+      <ProjectReference Include="..\MovieReviewsCompulsory.Domain\MovieReviewsCompulsory.Domain.csproj" />
     </ItemGroup>
 
 </Project>
