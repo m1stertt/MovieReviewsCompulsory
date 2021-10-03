@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>MovieReviews.Infrastructure.JsonRepository</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MovieReviewsCompulsory.Domain\MovieReviewsCompulsory.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
