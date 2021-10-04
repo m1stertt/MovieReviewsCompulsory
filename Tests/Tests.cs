@@ -11,7 +11,7 @@ namespace Tests
 {
     public class Tests
     {
-        private Mock<IRepository> _mock;
+        private readonly IReviewService _service;
 
         public Tests()
         {
@@ -51,8 +51,9 @@ namespace Tests
                 Movie = 3,
                 Date = DateTime.Now
             });
-            _mock = new Mock<IRepository>();
-            _mock.Setup(x => x.ReadAll()).Returns(data);
+            var mock = new Mock<IRepository>();
+            mock.Setup(x => x.ReadAll()).Returns(data);
+            _service = new ReviewService(mock.Object);
         }
 
         [Theory]
@@ -61,8 +62,7 @@ namespace Tests
         [InlineData(3,2)]
         public void GetNumberOfReviewsFromReviewer(int reviewer, int expected)
         {
-            var service = new ReviewService(_mock.Object);
-            var actual = service.GetNumberOfReviewsFromReviewer(reviewer);
+            var actual = _service.GetNumberOfReviewsFromReviewer(reviewer);
             Assert.Equal(expected,actual);
         }
 
@@ -72,8 +72,7 @@ namespace Tests
         [InlineData(3,3)]
         public void GetAverageRateFromReviewer(int reviewer, double expected)
         {
-            var service = new ReviewService(_mock.Object);
-            var actual = service.GetAverageRateFromReviewer(reviewer);
+            var actual = _service.GetAverageRateFromReviewer(reviewer);
             Assert.Equal(expected,actual);
         }
 
@@ -86,8 +85,7 @@ namespace Tests
         [InlineData(3,3,2)]
         public void GetNumberOfRatesByReviewer(int reviewer, int rate, int expected)
         {
-            var service = new ReviewService(_mock.Object);
-            var actual = service.GetNumberOfRatesByReviewer(reviewer,rate);
+            var actual = _service.GetNumberOfRatesByReviewer(reviewer,rate);
             Assert.Equal(expected,actual);
         }
 
@@ -98,8 +96,102 @@ namespace Tests
         [InlineData(4, 0)]
         public void GetNumberOfReviews(int movie, int expected)
         {
-            var service = new ReviewService(_mock.Object);
-            var actual = service.GetNumberOfReviews(movie);
+            var actual = _service.GetNumberOfReviews(movie);
+            Assert.Equal(expected,actual); 
+        }
+
+        [Theory]
+        [InlineData(1, 3.5)]
+        [InlineData(2, 3.5)]
+        [InlineData(3, 3)]
+        [InlineData(4, 0)]
+        public void GetAverageRateOfMovie(int movie, double expected)
+        {
+            var actual = _service.GetAverageRateOfMovie(movie);
+            Assert.Equal(expected,actual); 
+        }
+
+        [Theory]
+        [InlineData(1,2,1)]
+        [InlineData(1,0,0)]
+        public void GetNumberOfRates(int movie, int rate, int expected)
+        {
+            var actual = _service.GetNumberOfRates(movie,rate);
+            Assert.Equal(expected,actual); 
+        }
+        
+        public static IEnumerable<object[]> MoviesWithHighestNumberOfTopRates =>
+            new List<object[]>
+            {
+                new object[]{ new List<int>{1} }
+            };
+        
+        [Theory]
+        [MemberData(nameof(MoviesWithHighestNumberOfTopRates))]
+        public void GetMoviesWithHighestNumberOfTopRates(List<int> expected)
+        {
+            var actual = _service.GetMoviesWithHighestNumberOfTopRates();
+            Assert.Equal(expected,actual); 
+        }
+        
+        public static IEnumerable<object[]> MostProductiveReviewersData =>
+            new List<object[]>
+            {
+                new object[]{ new List<int>{1,3,2} }
+            };
+        
+        [Theory]
+        [MemberData(nameof(MostProductiveReviewersData))]
+        public void GetMostProductiveReviewers(List<int> expected)
+        {
+            var actual = _service.GetMostProductiveReviewers();
+            Assert.Equal(expected,actual); 
+        }
+        
+        public static IEnumerable<object[]> TopRatedMoviesData =>
+            new List<object[]>
+            {
+                new object[]{ 3,new List<int>{1,2,3} },
+                new object[]{ 1,new List<int>{1} }
+            };
+        
+        [Theory]
+        [MemberData(nameof(TopRatedMoviesData))]
+        public void GetTopRatedMovies(int amount, List<int> expected)
+        {
+            var actual = _service.GetTopRatedMovies(amount);
+            Assert.Equal(expected,actual); 
+        }
+        
+        public static IEnumerable<object[]> TopMoviesByReviewer =>
+            new List<object[]>
+            {
+                new object[]{ 1,new List<int>{2,1} },
+                new object[]{ 2,new List<int>{1} },
+                new object[]{ 3,new List<int>{3,2} }
+            };
+        
+        [Theory]
+        [MemberData(nameof(TopMoviesByReviewer))]
+        public void GetTopMoviesByReviewer(int reviewer, List<int> expected)
+        {
+            var actual = _service.GetTopMoviesByReviewer(reviewer);
+            Assert.Equal(expected,actual); 
+        }
+        
+        public static IEnumerable<object[]> ReviewersByMovie =>
+            new List<object[]>
+            {
+                new object[]{ 1,new List<int>{2,1} },
+                new object[]{ 2,new List<int>{1,3} },
+                new object[]{ 3,new List<int>{3} }
+            };
+        
+        [Theory]
+        [MemberData(nameof(ReviewersByMovie))]
+        public void GetReviewersByMovie(int movie, List<int> expected)
+        {
+            var actual = _service.GetReviewersByMovie(movie);
             Assert.Equal(expected,actual); 
         }
     }
