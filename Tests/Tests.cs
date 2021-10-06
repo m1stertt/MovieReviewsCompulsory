@@ -16,43 +16,13 @@ namespace Tests
         public Tests()
         {
             var data = new List<Review>();
-            data.Add(new Review
-            {
-                Reviewer = 1,
-                Grade = 2,
-                Movie = 1,
-                Date = DateTime.Now
-            });
-            data.Add(new Review
-            {
-                Reviewer = 1,
-                Grade = 4,
-                Movie = 2,
-                Date = DateTime.Now
-            });
-            data.Add(new Review
-            {
-                Reviewer = 2,
-                Grade = 5,
-                Movie = 1,
-                Date = DateTime.Now
-            });
-            data.Add(new Review
-            {
-                Reviewer = 3,
-                Grade = 3,
-                Movie = 2,
-                Date = DateTime.Now
-            });
-            data.Add(new Review
-            {
-                Reviewer = 3,
-                Grade = 3,
-                Movie = 3,
-                Date = DateTime.Now
-            });
-            var mock = new Mock<IRepository>();
-            mock.Setup(x => x.ReadAll()).Returns(data);
+            data.Add(new Review(1, 1, 2, DateTime.Now));
+            data.Add(new Review(1, 2, 4, DateTime.Now));
+            data.Add(new Review(2, 1, 5, DateTime.Now));
+            data.Add(new Review(3, 2, 3, DateTime.Now));
+            data.Add(new Review(3, 3, 3, DateTime.Now));
+            var mock = new Mock<IRepository<Review>>();
+            mock.Setup(x => x.GetAllItems()).Returns(data.ToArray());
             _service = new ReviewService(mock.Object);
         }
 

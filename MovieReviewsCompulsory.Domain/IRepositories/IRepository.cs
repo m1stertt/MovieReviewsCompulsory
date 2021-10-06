@@ -3,8 +3,9 @@ using MovieReviewsCompulsory.Core.Models;
 
 namespace MovieReviewsCompulsory.Domain.IRepositories
 {
-    public interface IRepository
+    public interface IRepository<T>
     {
-        List<Review> ReadAll();
+        public T[] Items { get;}
+        T[] GetAllItems();
     }
 }
